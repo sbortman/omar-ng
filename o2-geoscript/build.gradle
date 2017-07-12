@@ -1,0 +1,51 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.4.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+
+	maven { url "http://download.osgeo.org/webdav/geotools/" }
+	maven { url "https://repo.grails.org/grails/core" }
+	maven { url "http://repo.boundlessgeo.com/main" }
+	maven { url "http://maven.geo-solutions.it/" }
+	maven { url "https://artifacts.unidata.ucar.edu/content/repositories/unidata/" }
+
+	mavenCentral()
+}
+
+
+dependencies {
+
+	compile "commons-beanutils:commons-beanutils:1.9.3"
+
+	compile( "org.geoscript:geoscript-groovy:1.9.0" ) {
+		exclude module: "ehcache"
+		exclude module: "groovy-all"
+		exclude module: "slf4j-log4j12"
+		exclude module: "xml-apis"
+		exclude module: "commons-beanutils"
+    exclude module: 'miglayout'
+	}
+
+	
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.codehaus.groovy:groovy')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

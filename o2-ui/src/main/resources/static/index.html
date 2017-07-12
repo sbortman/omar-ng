@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>O2 UI</title>
+    <link rel="stylesheet" href="/webjars/openlayers/4.0.1/ol.css" type="text/css">
+    <link rel="stylesheet" href="/css/mapWidget.css" type="text/css">
+</head>
+<body>
+<div id="map" class="map"></div>
+<script src="webjars/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="/webjars/openlayers/4.0.1/ol.js" type="text/javascript"></script>
+<script src="/js/mapWidget.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $( 'document' ).ready( function ()
+    {
+        MapWidget.init();
+    } );
+</script>
+</body>
+</html>
+
