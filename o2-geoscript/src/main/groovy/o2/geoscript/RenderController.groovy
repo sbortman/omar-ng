@@ -3,6 +3,7 @@ package o2.geoscript
 import geoscript.geom.Bounds
 import geoscript.layer.Shapefile
 import geoscript.render.Map as GeoScriptMap
+import groovy.transform.CompileStatic
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -19,6 +20,7 @@ import static geoscript.style.Symbolizers.stroke
  */
 @RestController
 @RequestMapping( value = '/' )
+@CompileStatic
 class RenderController
 {
   @RequestMapping( value = 'getTile', method = RequestMethod.GET )
@@ -40,8 +42,8 @@ class RenderController
   private void blank(Map<String, Object> params, OutputStream ostream)
   {
     BufferedImage image = new BufferedImage(
-        params?.WIDTH?.toInteger(),
-        params?.HEIGHT?.toInteger(),
+        params?.WIDTH?.toString()?.toInteger(),
+        params?.HEIGHT?.toString()?.toInteger(),
         BufferedImage.TYPE_INT_ARGB )
 
     ImageIO.write( image, 'png', ostream )
@@ -49,7 +51,7 @@ class RenderController
 
   private void geoscript(Map<String, Object> params, OutputStream ostream)
   {
-    def coords = params?.BBOX?.split( ',' )?.collect { it?.toDouble() }
+    double[] coords = params?.BBOX?.toString()?.split( ',' )?.collect { it?.toString().toDouble() }
 
     def bbox = new Bounds(
         coords[1], coords[0], coords[3], coords[2],
@@ -65,9 +67,9 @@ class RenderController
 
     def map = new GeoScriptMap(
         fixAspectRatio: false,
-        width: params?.WIDTH?.toInteger(),
-        height: params?.HEIGHT?.toInteger(),
-        type: params.FORMAT?.split( '/' )?.last(),
+        width: params?.WIDTH?.toString()?.toInteger(),
+        height: params?.HEIGHT?.toString()?.toInteger(),
+        type: params.FORMAT?.toString()?.split( '/' )?.last(),
         bounds: bbox,
         proj: bbox?.proj,
         layers: [
