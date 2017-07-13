@@ -34,6 +34,7 @@ class RenderController
 //    blank( params, ostream )
     geoscript( params, ostream )
 
+    ostream.flush()
     ostream.close()
 
     createHttpEntity( ostream.toByteArray(), 'png' )

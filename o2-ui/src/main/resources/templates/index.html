@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>O2 UI</title>
@@ -12,11 +14,14 @@
 <script src="/webjars/openlayers/4.0.1/ol.js" type="text/javascript"></script>
 <script src="/js/mapWidget.js" type="text/javascript"></script>
 
-<script type="text/javascript">
+<script th:inline="javascript">
+    /*<![CDATA[*/
     $( 'document' ).ready( function ()
     {
-        MapWidget.init();
+        var params = JSON.parse( /*[[${viewParams}]]*/ );
+        MapWidget.init( params );
     } );
+    /*]]>*/
 </script>
 </body>
 </html>
